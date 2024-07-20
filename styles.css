@@ -9,7 +9,6 @@ body {
     color: #0f0;
     font-family: 'Courier New', Courier, monospace;
     font-size: 16px;
-    overflow: hidden;
 }
 
 #console {
@@ -22,13 +21,17 @@ body {
     position: relative;
 }
 
-#output, #progress {
+#output, #progress, #large-text {
     white-space: pre-wrap;
 }
 
 #cursor {
     display: inline-block;
     animation: blink 1s step-end infinite;
+}
+
+.hidden {
+    display: none;
 }
 
 @keyframes blink {
@@ -40,39 +43,11 @@ body {
     }
 }
 
-#lamp-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 1s;
+.large-text {
+    font-size: 8.5px; /* Уменьшите размер шрифта по вашему усмотрению */
+    line-height: 1.2; /* Опционально, для улучшения читабельности */
 }
 
-#lamp {
-    width: 226px;
-    height: 226px;
-    animation: lampAnimation 2s forwards;
-}
-
-@keyframes lampAnimation {
-    0% {
-        opacity: 0;
-    }
-    7% {
-        opacity: 1;
-    }
-    14% {
-        opacity: 0;
-    }
-    20% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 1;
-    }
+.hide-cursor #cursor {
+    display: none;
 }

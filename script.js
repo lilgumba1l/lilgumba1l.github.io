@@ -1,6 +1,7 @@
 const outputElement = document.getElementById('output');
 const progressElement = document.getElementById('progress');
-const lampContainer = document.getElementById('lamp-container');
+const largeTextElement = document.getElementById('large-text');
+const consoleElement = document.getElementById('console');
 
 const lines = [
     'Initializing...',
@@ -9,6 +10,19 @@ const lines = [
     'Fetching data...',
     'Loading data...',
 ];
+
+const largeText = `
+ ██▓     ██▓ ██▓      ▄████  █    ██  ███▄ ▄███▓ ▄▄▄▄    ▄▄▄       ██▓     ██▓        ▄▄▄▄    ██▓ ▒█████    ██████ 
+▓██▒    ▓██▒▓██▒     ██▒ ▀█▒ ██  ▓██▒▓██▒▀█▀ ██▒▓█████▄ ▒████▄    ▓██▒    ▓██▒       ▓█████▄ ▓██▒▒██▒  ██▒▒██    ▒ 
+▒██░    ▒██▒▒██░    ▒██░▄▄▄░▓██  ▒██░▓██    ▓██░▒██▒ ▄██▒██  ▀█▄  ▒██░    ▒██░       ▒██▒ ▄██▒██▒▒██░  ██▒░ ▓██▄   
+▒██░    ░██░▒██░    ░▓█  ██▓▓▓█  ░██░▒██    ▒██ ▒██░█▀  ░██▄▄▄▄██ ▒██░    ▒██░       ▒██░█▀  ░██░▒██   ██░  ▒   ██▒
+░██████▒░██░░██████▒░▒▓███▀▒▒▒█████▓ ▒██▒   ░██▒░▓█  ▀█▓ ▓█   ▓██▒░██████▒░██████▒   ░▓█  ▀█▓░██░░ ████▓▒░▒██████▒▒
+░ ▒░▓  ░░▓  ░ ▒░▓  ░ ░▒   ▒ ░▒▓▒ ▒ ▒ ░ ▒░   ░  ░░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░▓  ░░ ▒░▓  ░   ░▒▓███▀▒░▓  ░ ▒░▒░▒░ ▒ ▒▓▒ ▒ ░
+░ ░ ▒  ░ ▒ ░░ ░ ▒  ░  ░   ░ ░░▒░ ░ ░ ░  ░      ░▒░▒   ░   ▒   ▒▒ ░░ ░ ▒  ░░ ░ ▒  ░   ▒░▒   ░  ▒ ░  ░ ▒ ▒░ ░ ░▒  ░ ░
+  ░ ░    ▒ ░  ░ ░   ░ ░   ░  ░░░ ░ ░ ░      ░    ░    ░   ░   ▒     ░ ░     ░ ░       ░    ░  ▒ ░░ ░ ░ ▒  ░  ░  ░  
+    ░  ░ ░      ░  ░      ░    ░            ░    ░            ░  ░    ░  ░    ░  ░    ░       ░      ░ ░        ░  
+                                                      ░                                    ░                       
+`;
 
 let lineIndex = 0;
 let progressBar = '';
@@ -24,13 +38,7 @@ function displayNextLine() {
             setTimeout(displayNextLine, 1000); // Пауза в 1 секунду между строками
         }
     } else {
-        setTimeout(() => {
-            document.getElementById('console').style.opacity = 0; // Скрыть консоль
-            lampContainer.style.opacity = 1; // Показать лампочку
-            setTimeout(() => {
-                window.location.href = 'main.html'; // Перенаправление на основной сайт
-            }, 3000); // Подождать 3 секунды перед перенаправлением
-        }, 1000);
+        setTimeout(clearConsoleAndShowText, 1000); // Очистить консоль и показать большой текст
     }
 }
 
@@ -53,6 +61,17 @@ function updateProgressBar() {
             }, 500);
         }
     }, 50); // Обновление прогресс-бара каждые 50 миллисекунд
+}
+
+function clearConsoleAndShowText() {
+    outputElement.innerHTML = '';
+    progressElement.innerHTML = '';
+    largeTextElement.classList.remove('hidden');
+    consoleElement.classList.add('hide-cursor');
+    largeTextElement.innerHTML = largeText;
+    setTimeout(() => {
+        window.location.href = 'main.html'; // Перенаправление на основной сайт
+    }, 5000); // Задержка перед перенаправлением
 }
 
 document.addEventListener('DOMContentLoaded', displayNextLine);
